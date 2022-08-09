@@ -1,2 +1,2 @@
 # uhyunpark.github.io
-blog
+uhyun.me

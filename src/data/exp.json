@@ -1,0 +1,20 @@
+[
+  {
+    "company": "OVERDARE Inc.",
+    "position": "Software Engineer",
+    "period": "2023 — 2025",
+    "description": "Core developer of [Settlus](https://settlus.org) blockchain, also developed backend for Overdare's [Creator Hub](https://create.overdare.com/)."
+  },
+  {
+    "company": "Krafton Inc.",
+    "position": "Software Engineer",
+    "period": "2022 — 2023", 
+    "description": "Part of Project Migaloo: Web 3.0 Team, spin off to OVERDARE Inc."
+  },
+  {
+    "company": "PUBG Corp.",
+    "position": "Data Analyst, Data Engineer",
+    "period": "2018 — 2022",
+    "description": "Developed personalized analytics platform, and real-time data pipeline for PUBG LITE and [New State Mobile](https://newstate.pubg.com/ko). Led a team of 10 data analysts and improved the analytics ecosystem to support data-driven decision making."
+  }
+] 

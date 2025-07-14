@@ -1,6 +1,6 @@
 import './App.css'
-import { ArrowUpRight } from "lucide-react"
-import { FaLinkedin } from 'react-icons/fa'
+import { ArrowUpRight, Mail, Copy, Check } from "lucide-react"
+import { FaLinkedin, FaGithub } from 'react-icons/fa'
 import { useState } from "react"
 import ReactMarkdown from 'react-markdown'
 import workExperienceData from './data/exp.json'
@@ -39,6 +39,7 @@ interface Education {
 function App() {
   const [isPersonal, setIsPersonal] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const handleToggle = () => {
     setIsTransitioning(true)
@@ -46,6 +47,16 @@ function App() {
       setIsPersonal(!isPersonal)
       setIsTransitioning(false)
     }, 200)
+  }
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText('pibrizo@gmail.com')
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch (err) {
+      console.error('Failed to copy email:', err)
+    }
   }
 
   return (
@@ -82,11 +93,41 @@ function App() {
             Hello, I'm <em>Uhyun Park</em>
           </h1>
 
-          <p className="text-gray-600 leading-relaxed text-lg max-w-lg mx-auto">
-            I'm a full stack engineer and data specialist passionate about building great products.
-            I turn early stage ideas into products and aim to be a supportive teammate and a leader who drives meaningful impact.
-            {isPersonal && " I'm also a avid reader, listener, and swimmer."}
+          <p className="text-gray-600 leading-relaxed text-lg max-w-lg mx-auto mb-6">
+          I'm a full stack engineer and data specialist passionate about building great products.
+          I turn early-stage ideas to life and strive to be a supportive teammate and a leader who drives meaningful impact.
           </p>
+
+          {/* Contact Links */}
+          <div className="flex justify-center gap-4 relative z-10">
+            <div className="flex items-center gap-2">
+              <a
+                href="mailto:pibrizo@gmail.com"
+                className="text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-2 text-sm"
+                title="Send Email"
+              >
+                <Mail className="w-4 h-4" />
+                Email
+              </a>
+              <button
+                onClick={handleCopyEmail}
+                className="text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-1 text-sm"
+                title="Copy Email"
+              >
+                {copied ? <Check className="w-2 h-2" /> : <Copy className="w-2 h-2" />}
+              </button>
+            </div>
+            <a
+              href="https://github.com/uhyunpark"
+              className="text-gray-400 hover:text-gray-600 transition-colors flex items-center gap-2 text-sm"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="View GitHub Profile"
+            >
+              <FaGithub className="w-4 h-4" />
+              GitHub
+            </a>
+          </div>
         </div>
 
         {/* Toggle Button */}
@@ -94,12 +135,12 @@ function App() {
           <img 
             src="/personal_indicator.png" 
             alt="Personal mode indicator" 
-            className="absolute -right-12 top-5 transform -translate-y-1/2 w-80 h-80 opacity-70 hover:opacity-100 transition-opacity cursor-pointer z-20"
+            className="absolute -right-10 md:-right-12 top-5 transform -translate-y-1/2 w-80 h-80 opacity-70 hover:opacity-100 transition-opacity cursor-pointer z-0 pointer-events-auto"
             onClick={handleToggle}
           />
           <button
             onClick={handleToggle}
-            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+            className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 z-10 ${
               isPersonal ? 'bg-blue-600' : 'bg-gray-300'
             }`}
           >
@@ -224,18 +265,20 @@ function App() {
 
             {/* Other Works Section */}
             <div className="mt-16">
-              <h3 className="text-xl font-light text-gray-900 mb-4">Other Works</h3>
+              <h3 className="text-xl font-light text-gray-900 mb-4">Something More</h3>
               <div className="w-full h-px bg-gray-200 mb-6"></div>
               <div className="space-y-4">
                 {(otherWorksData as OtherWork[]).map((work, index) => (
                   <div key={index} className="flex justify-between items-start">
                     <div>
-                      <h4 className="text-lg font-medium text-gray-900">{work.title}</h4>
+                      <div className="flex justify-between items-start mb-3">
+                        <h4 className="text-lg font-medium text-gray-900">{work.title}</h4>
+                        <span className="text-sm text-gray-400">{work.period}</span>
+                      </div>
                       <div className="prose prose-sm max-w-none text-gray-600 text-sm">
                         <ReactMarkdown>{work.description}</ReactMarkdown>
                       </div>
                     </div>
-                    <span className="text-sm text-gray-400">{work.period}</span>
                   </div>
                 ))}
               </div>

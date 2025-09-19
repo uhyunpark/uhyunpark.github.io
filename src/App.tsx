@@ -267,17 +267,15 @@ function App() {
             <div className="mt-16">
               <h3 className="text-xl font-light text-gray-900 mb-4">Something More</h3>
               <div className="w-full h-px bg-gray-200 mb-6"></div>
-              <div className="space-y-4">
+              <div className="flex flex-col gap-4">
                 {(otherWorksData as OtherWork[]).map((work, index) => (
-                  <div key={index} className="flex justify-between items-start">
-                    <div>
-                      <div className="flex justify-between items-start mb-3">
+                  <div key={index} className="flex flex-col justify-between items-start gap-3 pb-4">
+                      <div className="flex flex-row w-full justify-between items-start">
                         <h4 className="text-lg font-medium text-gray-900">{work.title}</h4>
-                        <span className="text-sm text-gray-400">{work.period}</span>
+                        <span className="mt-1 text-sm text-gray-400">{work.period}</span>
                       </div>
                       <div className="prose prose-sm max-w-none text-gray-600 text-sm">
-                        <ReactMarkdown>{work.description}</ReactMarkdown>
-                      </div>
+                      <ReactMarkdown>{work.description}</ReactMarkdown>
                     </div>
                   </div>
                 ))}

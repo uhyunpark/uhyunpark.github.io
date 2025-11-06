@@ -1,0 +1,14 @@
+[
+  {
+    "company": "Krafton Inc.",
+    "position": "Software Engineer",
+    "period": "2022 — Present",
+    "description": "Core developer of [Settlus](https://settlus.org) blockchain, also developed backend for [Overdare app](https://www.overdare.com/) and Overdare's [Creator Hub](https://create.overdare.com/)."
+  },
+  {
+    "company": "PUBG Corp.",
+    "position": "Data Analyst, Data Engineer",
+    "period": "2018 — 2022",
+    "description": "Developed and designed personalized analytics platform, and real-time data pipeline for PUBG LITE and [New State Mobile](https://newstate.pubg.com/ko). Led a team of 10 data analysts and improved the analytics ecosystem to support data-driven decision making. Also led the management and analysis of online marketing campaigns to optimize performance and maximize business impact."
+  }
+] 

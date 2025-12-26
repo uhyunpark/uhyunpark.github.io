@@ -1,4 +1,5 @@
 import './App.css'
+import { Link } from 'react-router-dom'
 import { ArrowUpRight, Mail, Copy, Check } from "lucide-react"
 import { FaLinkedin, FaGithub } from 'react-icons/fa'
 import { useState } from "react"
@@ -6,7 +7,7 @@ import ReactMarkdown from 'react-markdown'
 import workExperienceData from './data/exp.json'
 import writingsData from './data/writings.json'
 import personalInterestsData from './data/interest.json'
-import otherWorksData from './data/otherworks.json'
+import othersData from './data/others.json'
 import educationData from './data/education.json'
 
 interface WorkExperience {
@@ -37,14 +38,14 @@ interface Education {
 }
 
 function App() {
-  const [isPersonal, setIsPersonal] = useState(false)
+  const [isResume, setIsResume] = useState(false)
   const [isTransitioning, setIsTransitioning] = useState(false)
   const [copied, setCopied] = useState(false)
 
   const handleToggle = () => {
     setIsTransitioning(true)
     setTimeout(() => {
-      setIsPersonal(!isPersonal)
+      setIsResume(!isResume)
       setTimeout(() => {
         setIsTransitioning(false)
       }, 100)
@@ -92,12 +93,12 @@ function App() {
           </div>
 
           <h1 className="text-4xl font-light leading-tight mb-4 text-gray-900">
-            Hello, I'm <em>Uhyun Park</em>
+            <em>Uhyun Park</em>
           </h1>
 
-          <p className="text-gray-600 leading-relaxed text-lg max-w-lg mx-auto mb-6">
+          {/* <p className="text-gray-600 leading-relaxed text-lg max-w-lg mx-auto mb-6">
           Full stack engineer and data specialist passionate about building great products.
-          </p>
+          </p> */}
 
           {/* Contact Links */}
           <div className="flex justify-center gap-4 relative z-10">
@@ -133,47 +134,43 @@ function App() {
 
         {/* Toggle Button */}
         <div className="flex justify-end items-center gap-3 mb-20 relative">
-          <img 
-            src="/personal_indicator.png" 
-            alt="Personal mode indicator" 
-            className="absolute -right-10 md:-right-12 top-5 transform -translate-y-1/2 w-80 h-80 opacity-70 transition-opacity z-0 pointer-events-auto"
-          />
           <button
             onClick={handleToggle}
             className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-200 hover:cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-300 focus:ring-offset-2 z-10 ${
-              isPersonal ? 'bg-lime-300' : 'bg-gray-300'
+              isResume ? 'bg-lime-300' : 'bg-gray-300'
             }`}
           >
             <span
               className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform duration-200 ${
-                isPersonal ? 'translate-x-6' : 'translate-x-1'
+                isResume ? 'translate-x-6' : 'translate-x-1'
               }`}
             />
           </button>
         </div>
 
-        {/* Writings Section */}
-        {isPersonal && (
+        {/* Default Page - Writings, Other Works, Interests, Education */}
+        {!isResume && (
           <div className={`mb-20 transition-opacity duration-500 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
+            {/* Writings Section */}
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-2xl font-light text-gray-900">Recent Writings</h2>
-              <a
-                href="/writings"
+              <Link
+                to="/writings"
                 className="text-sm text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-1 z-10"
               >
                 View all <ArrowUpRight className="w-4 h-4" />
-              </a>
+              </Link>
             </div>
             <div className="w-full h-px bg-gray-200 mb-4"></div>
 
             <div className="space-y-6">
               {writingsData.length > 0 ? (
                 (writingsData as Writing[]).map((post, index) => (
-                  <a key={index} href={`/writings/${post.slug}`} className="block group">
+                  <Link key={index} to={`/writings/${post.slug}`} className="block group">
                     <article className="py-4 border-b border-gray-100 last:border-b-0">
                       <div className="flex justify-between items-start gap-4">
                         <div className="flex-1">
-                          <h3 className="text-lg font-medium text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
+                          <h3 className="font-light italic text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
                             {post.title}
                           </h3>
                           <div className="text-gray-600 text-sm leading-relaxed prose prose-sm max-w-none">
@@ -183,7 +180,7 @@ function App() {
                         <time className="text-sm text-gray-400 whitespace-nowrap">{post.date}</time>
                       </div>
                     </article>
-                  </a>
+                  </Link>
                 ))
               ) : (
                 <div className="text-center py-12">
@@ -194,9 +191,9 @@ function App() {
               )}
             </div>
 
-            {/* Personal Interests Section */}
+            {/* Interests Section */}
             <div className="mt-16">
-              <h3 className="text-xl font-light text-gray-900 mb-4">Personal Interests</h3>
+              <h2 className="text-2xl font-light text-gray-900 mb-4">Interests</h2>
               <div className="w-full h-px bg-gray-200 mb-6"></div>
               <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
                 {(personalInterestsData as string[]).map((interest, index) => (
@@ -205,9 +202,28 @@ function App() {
               </div>
             </div>
 
+            {/* Other Works Section */}
+            <div className="mt-16">
+              <h2 className="text-2xl font-light text-gray-900 mb-4">Some Works</h2>
+              <div className="w-full h-px bg-gray-200 mb-6"></div>
+              <div className="flex flex-col gap-4">
+                {(othersData as OtherWork[]).map((work, index) => (
+                  <div key={index} className="flex flex-col justify-between items-start gap-3 pb-4">
+                      <div className="flex flex-row w-full justify-between items-start">
+                        <h4 className="text-lg font-medium text-gray-900">{work.title}</h4>
+                        <span className="mt-1 text-sm text-gray-400">{work.period}</span>
+                      </div>
+                      <div className="prose prose-sm max-w-none text-gray-600 text-sm">
+                      <ReactMarkdown>{work.description}</ReactMarkdown>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* Education Section */}
             <div className="mt-16">
-              <h3 className="text-xl font-light text-gray-900 mb-4">Education</h3>
+              <h2 className="text-2xl font-light text-gray-900 mb-4">Education</h2>
               <div className="w-full h-px bg-gray-200 mb-6"></div>
               <div className="space-y-6">
                 {(educationData as Education[]).map((edu, index) => (
@@ -229,8 +245,8 @@ function App() {
           </div>
         )}
 
-        {/* Work Experience Section */}
-        {!isPersonal && (
+        {/* Resume Page - Work Experience */}
+        {isResume && (
           <div className={`mb-16 transition-opacity duration-500 ease-in-out ${isTransitioning ? 'opacity-0' : 'opacity-100'}`}>
             <div className="flex items-center gap-3 mb-4">
               <h2 className="text-2xl font-light text-gray-900">Work Experience</h2>
@@ -261,25 +277,6 @@ function App() {
                   </p>
                 </div>
               ))}
-            </div>
-
-            {/* Other Works Section */}
-            <div className="mt-16">
-              <h3 className="text-xl font-light text-gray-900 mb-4">Something More</h3>
-              <div className="w-full h-px bg-gray-200 mb-6"></div>
-              <div className="flex flex-col gap-4">
-                {(otherWorksData as OtherWork[]).map((work, index) => (
-                  <div key={index} className="flex flex-col justify-between items-start gap-3 pb-4">
-                      <div className="flex flex-row w-full justify-between items-start">
-                        <h4 className="text-lg font-medium text-gray-900">{work.title}</h4>
-                        <span className="mt-1 text-sm text-gray-400">{work.period}</span>
-                      </div>
-                      <div className="prose prose-sm max-w-none text-gray-600 text-sm">
-                      <ReactMarkdown>{work.description}</ReactMarkdown>
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
           </div>
         )}

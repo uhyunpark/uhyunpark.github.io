@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import writingsData from '../data/writings.json'
 
 interface Writing {
   title: string
-  excerpt: string
+  excerpt?: string
   date: string
   slug: string
+  url?: string
 }
 
 export default function WritingsPage() {
@@ -28,13 +29,15 @@ export default function WritingsPage() {
 
         {writings.length > 0 ? (
           <div className="space-y-6">
-            {writings.map((post, index) => (
-              <Link key={index} to={`/writings/${post.slug}`} className="block group">
+            {writings.map((post, index) => {
+              const isExternal = !!post.url;
+              const content = (
                 <article className="py-4 border-b border-gray-100 last:border-b-0">
                   <div className="flex justify-between items-start gap-4">
                     <div className="flex-1">
                       <h2 className="text-lg font-light italic text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
                         {post.title}
+                        {isExternal && <ArrowUpRight className="inline-block w-4 h-4 ml-1 opacity-50" />}
                       </h2>
                       <p className="text-gray-600 text-sm leading-relaxed">
                         {post.excerpt}
@@ -43,8 +46,24 @@ export default function WritingsPage() {
                     <time className="text-sm text-gray-400 whitespace-nowrap">{post.date}</time>
                   </div>
                 </article>
-              </Link>
-            ))}
+              );
+
+              return isExternal ? (
+                <a 
+                  key={index} 
+                  href={post.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  className="block group"
+                >
+                  {content}
+                </a>
+              ) : (
+                <Link key={index} to={`/writings/${post.slug}`} className="block group">
+                  {content}
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <div className="text-center py-12">

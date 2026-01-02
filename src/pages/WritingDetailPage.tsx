@@ -5,9 +5,10 @@ import writingsData from '../data/writings.json'
 
 interface Writing {
   title: string
-  excerpt: string
+  excerpt?: string
   date: string
   slug: string
+  url?: string
 }
 
 // Import all markdown files from src/writings/

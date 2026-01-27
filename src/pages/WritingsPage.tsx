@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { ArrowLeft, ArrowUpRight } from 'lucide-react'
 import writingsData from '../data/writings.json'
 
 interface Writing {
@@ -14,63 +13,46 @@ export default function WritingsPage() {
   const writings = writingsData as Writing[]
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container max-w-2xl mx-auto px-6 py-16">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
-        </Link>
-
-        <h1 className="text-3xl font-light text-gray-900 mb-8">Writings</h1>
-        <div className="w-full h-px bg-gray-200 mb-8"></div>
-
+    <div>
+      <h1 className="text-sm font-medium text-gray-900 mb-6">Writings</h1>
+      <div className="border-t border-gray-100 pt-4">
         {writings.length > 0 ? (
-          <div className="space-y-6">
+          <div className="space-y-4">
             {writings.map((post, index) => {
-              const isExternal = !!post.url;
+              const isExternal = !!post.url
               const content = (
-                <article className="py-4 border-b border-gray-100 last:border-b-0">
-                  <div className="flex justify-between items-start gap-4">
-                    <div className="flex-1">
-                      <h2 className="text-lg font-light italic text-gray-900 group-hover:text-blue-600 transition-colors mb-2">
-                        {post.title}
-                        {isExternal && <ArrowUpRight className="inline-block w-4 h-4 ml-1 opacity-50" />}
-                      </h2>
-                      <p className="text-gray-600 text-sm leading-relaxed">
-                        {post.excerpt}
-                      </p>
-                    </div>
-                    <time className="text-sm text-gray-400 whitespace-nowrap">{post.date}</time>
+                <div className="group">
+                  <div className="flex justify-between items-baseline gap-4 mb-1">
+                    <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
+                      {post.title}
+                    </span>
+                    <span className="text-xs text-gray-400 whitespace-nowrap">{post.date}</span>
                   </div>
-                </article>
-              );
+                  {post.excerpt && (
+                    <p className="text-xs text-gray-400">{post.excerpt}</p>
+                  )}
+                </div>
+              )
 
               return isExternal ? (
-                <a 
-                  key={index} 
-                  href={post.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="block group"
+                <a
+                  key={index}
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
                 >
                   {content}
                 </a>
               ) : (
-                <Link key={index} to={`/writings/${post.slug}`} className="block group">
+                <Link key={index} to={`/writings/${post.slug}`} className="block">
                   {content}
                 </Link>
-              );
+              )
             })}
           </div>
         ) : (
-          <div className="text-center py-12">
-            <div className="text-4xl mb-4">✍️</div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No writings yet</h3>
-            <p className="text-gray-600 text-sm">New articles are coming soon. Stay tuned!</p>
-          </div>
+          <p className="text-sm text-gray-400">Coming soon.</p>
         )}
       </div>
     </div>

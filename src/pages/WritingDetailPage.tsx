@@ -1,5 +1,4 @@
 import { useParams, Link } from 'react-router-dom'
-import { ArrowLeft } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import writingsData from '../data/writings.json'
 
@@ -25,48 +24,41 @@ export default function WritingDetailPage() {
 
   if (!post) {
     return (
-      <div className="min-h-screen bg-white">
-        <div className="container max-w-2xl mx-auto px-6 py-16">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8"
-          >
-            <ArrowLeft className="w-4 h-4" />
-            Back
+      <div>
+        <nav className="text-xs text-gray-400 mb-8">
+          <Link to="/writings" className="hover:text-gray-600 transition-colors">
+            Writings
           </Link>
-          <div className="text-center py-12">
-            <h1 className="text-2xl font-light text-gray-900 mb-4">Post not found</h1>
-            <p className="text-gray-600">The writing you're looking for doesn't exist.</p>
-          </div>
-        </div>
+          <span className="mx-2">/</span>
+          <span>Not found</span>
+        </nav>
+        <p className="text-sm text-gray-600">The writing you're looking for doesn't exist.</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container max-w-2xl mx-auto px-6 py-16">
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors mb-8"
-        >
-          <ArrowLeft className="w-4 h-4" />
-          Back
+    <div>
+      <nav className="text-xs text-gray-400 mb-8">
+        <Link to="/writings" className="hover:text-gray-600 transition-colors">
+          Writings
         </Link>
+        <span className="mx-2">/</span>
+        <span className="text-gray-600">{post.title}</span>
+      </nav>
 
-        <article>
-          <header className="mb-8">
-            <h1 className="text-3xl font-light text-gray-900 mb-4">{post.title}</h1>
-            <time className="text-sm text-gray-400">{post.date}</time>
-          </header>
+      <article>
+        <header className="mb-8">
+          <h1 className="text-lg font-medium text-gray-900 mb-2">{post.title}</h1>
+          <time className="text-xs text-gray-400">{post.date}</time>
+        </header>
 
-          <div className="w-full h-px bg-gray-200 mb-8"></div>
-
-          <div className="prose prose-gray max-w-none">
+        <div className="border-t border-gray-100 pt-6">
+          <div className="prose prose-sm prose-gray max-w-none">
             <ReactMarkdown>{content || post.excerpt}</ReactMarkdown>
           </div>
-        </article>
-      </div>
+        </div>
+      </article>
     </div>
   )
 }

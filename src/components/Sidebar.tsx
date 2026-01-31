@@ -25,6 +25,7 @@ export default function Sidebar() {
           <a
             href="mailto:pibrizo@gmail.com"
             className="hover:text-gray-700 transition-colors"
+            aria-label="Email"
           >
             <HiOutlineMail className="w-5 h-5" />
           </a>
@@ -33,6 +34,7 @@ export default function Sidebar() {
             className="hover:text-gray-700 transition-colors"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="GitHub"
           >
             <FaGithub className="w-4.5 h-4.5" />
           </a>
@@ -41,6 +43,7 @@ export default function Sidebar() {
             className="hover:text-gray-700 transition-colors"
             target="_blank"
             rel="noopener noreferrer"
+            aria-label="LinkedIn"
           >
             <FaLinkedin className="w-4.5 h-4.5" />
           </a>
@@ -49,13 +52,10 @@ export default function Sidebar() {
         {/* Navigation */}
         <nav className="flex-1 space-y-1">
           <NavLink to="/" end className={navLinkClass}>
-            Personal
+            Home
           </NavLink>
           <NavLink to="/resume" className={navLinkClass}>
             Experience
-          </NavLink>
-          <NavLink to="/writings" className={navLinkClass}>
-            Writings
           </NavLink>
         </nav>
       </div>

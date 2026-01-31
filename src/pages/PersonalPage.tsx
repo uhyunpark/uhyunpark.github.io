@@ -4,7 +4,6 @@ import { HiOutlineExternalLink } from 'react-icons/hi'
 import writingsData from '../data/writings.json'
 import personalInterestsData from '../data/interest.json'
 import othersData from '../data/others.json'
-import educationData from '../data/education.json'
 
 interface Writing {
   title: string
@@ -20,11 +19,9 @@ interface OtherWork {
   period: string
 }
 
-interface Education {
-  institution: string
-  degree: string
-  period: string
-  description: string
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 }
 
 export default function PersonalPage() {
@@ -32,8 +29,8 @@ export default function PersonalPage() {
     <div className="space-y-16">
       {/* Writings Section */}
       <section>
-        <div className="flex items-baseline justify-between mb-6">
-          <h2 className="text-sm font-medium text-gray-900">Recent Writings</h2>
+        <div className="flex items-baseline justify-between mb-3">
+          <h2 className="text-base font-semibold text-gray-900">Recent Writings</h2>
           <Link
             to="/writings"
             className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
@@ -52,7 +49,7 @@ export default function PersonalPage() {
                       <HiOutlineExternalLink className="w-3.5 h-3.5 text-gray-400" />
                       {post.title}
                     </span>
-                    <span className="text-xs text-gray-400 whitespace-nowrap">{post.date}</span>
+                    <span className="text-xs text-gray-400 whitespace-nowrap">{formatDate(post.date)}</span>
                   </div>
                 )
 
@@ -81,7 +78,7 @@ export default function PersonalPage() {
 
       {/* Other Works Section */}
       <section>
-        <h2 className="text-sm font-medium text-gray-900 mb-6">Some Works</h2>
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Some Works</h2>
         <div className="border-t border-gray-100 pt-4 space-y-6">
           {(othersData as OtherWork[]).map((work, index) => (
             <div key={index}>
@@ -112,30 +109,11 @@ export default function PersonalPage() {
         </div>
       </section>
 
-      {/* Education Section */}
-      <section>
-        <h2 className="text-sm font-medium text-gray-900 mb-6">Education</h2>
-        <div className="border-t border-gray-100 pt-4 space-y-6">
-          {(educationData as Education[]).map((edu, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-baseline mb-1">
-                <h3 className="text-sm font-medium text-gray-900">{edu.institution}</h3>
-                <span className="text-xs text-gray-400">{edu.period}</span>
-              </div>
-              <p className="text-sm text-gray-500 mb-2">{edu.degree}</p>
-              <div className="prose prose-sm max-w-none text-gray-600 text-sm">
-                <ReactMarkdown>{edu.description}</ReactMarkdown>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
       {/* Interests Section */}
       <section>
-        <h2 className="text-sm font-medium text-gray-900 mb-6">Interests</h2>
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Interests</h2>
         <div className="border-t border-gray-100 pt-4">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-2 text-sm text-gray-600">
+          <div className="flex flex-wrap gap-4 text-2xl">
             {(personalInterestsData as string[]).map((interest, index) => (
               <span key={index}>{interest}</span>
             ))}

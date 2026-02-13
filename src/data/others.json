@@ -1,5 +1,9 @@
 [
   {
+    "title": "X402-escrow",
+    "description": "[x402-escrow](https://x402-escrow-demo-web-s56x.vercel.app/) - Demo app for x402 with escrow feature"
+  },
+  {
     "title": "Zeoul",
     "description": "[Zeoul](https://zeoul.xyz) - Full featured swap service on GIWA Sepolia chain."
   },

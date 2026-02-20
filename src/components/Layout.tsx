@@ -10,7 +10,7 @@ export default function Layout() {
     }`
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-stone-50">
       {/* Sidebar (desktop) - fixed to left of centered content */}
       <Sidebar />
 

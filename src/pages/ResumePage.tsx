@@ -1,6 +1,7 @@
 import { FaLinkedin } from 'react-icons/fa'
 import ReactMarkdown from 'react-markdown'
 import workExperienceData from '../data/exp.json'
+import educationData from '../data/education.json'
 
 interface WorkExperience {
   company: string
@@ -9,11 +10,17 @@ interface WorkExperience {
   description: string
 }
 
+interface Education {
+  institution: string
+  degree: string
+  period: string
+}
+
 export default function ResumePage() {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-6">
-        <h2 className="text-sm font-medium text-gray-900">Work Experience</h2>
+      <div className="flex items-center gap-2 mb-3">
+        <h2 className="text-base font-semibold text-gray-900">Work Experience</h2>
         <a
           href="https://www.linkedin.com/in/uhyun-park-353248ab/"
           className="text-gray-400 hover:text-gray-600 transition-colors"
@@ -49,6 +56,20 @@ export default function ResumePage() {
                 {job.description}
               </ReactMarkdown>
             </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Education Section */}
+      <h2 className="text-base font-semibold text-gray-900 mt-12 mb-3">Education</h2>
+      <div className="border-t border-gray-100 pt-4 space-y-6">
+        {(educationData as Education[]).map((edu, index) => (
+          <div key={index}>
+            <div className="flex justify-between items-baseline mb-1">
+              <h3 className="text-sm font-medium text-gray-900">{edu.institution}</h3>
+              <span className="text-xs text-gray-400">{edu.period}</span>
+            </div>
+            <p className="text-sm text-gray-500">{edu.degree}</p>
           </div>
         ))}
       </div>

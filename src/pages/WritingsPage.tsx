@@ -9,6 +9,11 @@ interface Writing {
   url?: string
 }
 
+function formatDate(dateStr: string): string {
+  const date = new Date(dateStr)
+  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
+}
+
 export default function WritingsPage() {
   const writings = writingsData as Writing[]
 
@@ -26,7 +31,7 @@ export default function WritingsPage() {
                     <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
                       {post.title}
                     </span>
-                    <span className="text-xs text-gray-400 whitespace-nowrap">{post.date}</span>
+                    <span className="text-xs text-gray-400 whitespace-nowrap">{formatDate(post.date)}</span>
                   </div>
                   {post.excerpt && (
                     <p className="text-xs text-gray-400">{post.excerpt}</p>

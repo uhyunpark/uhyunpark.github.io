@@ -1,4 +1,3 @@
-import { FaLinkedin } from 'react-icons/fa'
 import ReactMarkdown from 'react-markdown'
 import workExperienceData from '../data/exp.json'
 import educationData from '../data/education.json'
@@ -19,17 +18,7 @@ interface Education {
 export default function ResumePage() {
   return (
     <div>
-      <div className="flex items-center gap-2 mb-3">
-        <h2 className="text-base font-semibold text-gray-900">Work Experience</h2>
-        <a
-          href="https://www.linkedin.com/in/uhyun-park-353248ab/"
-          className="text-gray-400 hover:text-gray-600 transition-colors"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <FaLinkedin className="w-4 h-4" />
-        </a>
-      </div>
+      <h2 className="text-base font-semibold text-gray-900 mb-3">Work Experience</h2>
       <div className="border-t border-gray-100 pt-4 space-y-8">
         {(workExperienceData as WorkExperience[]).map((job, index) => (
           <div key={index}>

@@ -8,6 +8,10 @@
     "description": "[Zeoul](https://zeoul.xyz) - Full featured swap service on GIWA Sepolia chain."
   },
   {
+    "title": "cc-plugin-viz",
+    "description": "[cc-plugin-viz](https://github.com/uhyunpark/cc-plugin-viz) - Visual dashboard for managing Claude Code plugins across scopes"
+  },
+  {
     "title": "Evaluait",
     "description": "[Evaluait](https://evaluait.cc) - Web-based AI & LLM fluency assessment / evaluation platform for companies."
   },

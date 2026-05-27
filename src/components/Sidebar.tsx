@@ -54,7 +54,7 @@ export default function Sidebar() {
           <NavLink to="/" end className={navLinkClass}>
             Home
           </NavLink>
-          <NavLink to="/resume" className={navLinkClass}>
+          <NavLink to="/experience" className={navLinkClass}>
             Experience
           </NavLink>
         </nav>

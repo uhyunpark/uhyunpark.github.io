@@ -24,10 +24,47 @@ function formatDate(dateStr: string): string {
   return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
 }
 
+// Toggle to show/hide the "Recent Writings" section on the home page.
+const SHOW_WRITINGS = false
+
 export default function PersonalPage() {
   return (
     <div className="space-y-16">
+      {/* Other Works Section */}
+      <section>
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Some Works</h2>
+        <div className="border-t border-gray-100 pt-4 space-y-6">
+          {(othersData as OtherWork[]).map((work, index) => (
+            <div key={index}>
+              <div className="flex justify-between items-baseline mb-2">
+                <h3 className="text-sm font-medium text-gray-900">{work.title}</h3>
+                <span className="text-xs text-gray-400">{work.period}</span>
+              </div>
+              <div className="text-sm text-gray-600">
+                <ReactMarkdown
+                  components={{
+                    a: ({ href, children }) => (
+                      <a
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-600 underline underline-offset-2 hover:text-gray-900"
+                      >
+                        {children}
+                      </a>
+                    ),
+                  }}
+                >
+                  {work.description}
+                </ReactMarkdown>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* Writings Section */}
+      {SHOW_WRITINGS && (
       <section>
         <div className="flex items-baseline justify-between mb-3">
           <h2 className="text-base font-semibold text-gray-900">Recent Writings</h2>
@@ -75,39 +112,7 @@ export default function PersonalPage() {
           )}
         </div>
       </section>
-
-      {/* Other Works Section */}
-      <section>
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Some Works</h2>
-        <div className="border-t border-gray-100 pt-4 space-y-6">
-          {(othersData as OtherWork[]).map((work, index) => (
-            <div key={index}>
-              <div className="flex justify-between items-baseline mb-2">
-                <h3 className="text-sm font-medium text-gray-900">{work.title}</h3>
-                <span className="text-xs text-gray-400">{work.period}</span>
-              </div>
-              <div className="text-sm text-gray-600">
-                <ReactMarkdown
-                  components={{
-                    a: ({ href, children }) => (
-                      <a
-                        href={href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-600 underline underline-offset-2 hover:text-gray-900"
-                      >
-                        {children}
-                      </a>
-                    ),
-                  }}
-                >
-                  {work.description}
-                </ReactMarkdown>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      )}
 
       {/* Interests Section */}
       <section>

@@ -56,7 +56,7 @@ export default function Layout() {
             <NavLink to="/" end className={mobileNavLinkClass}>
               Home
             </NavLink>
-            <NavLink to="/resume" className={mobileNavLinkClass}>
+            <NavLink to="/experience" className={mobileNavLinkClass}>
               Experience
             </NavLink>
           </div>

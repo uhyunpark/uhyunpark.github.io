@@ -17,7 +17,7 @@ export default function Layout() {
       <Sidebar />
 
       {/* Mobile top header + nav */}
-      <header className="md:hidden sticky top-0 z-40 bg-stone-50/95 backdrop-blur border-b border-gray-100">
+      <header className="lg:hidden sticky top-0 z-40 bg-stone-50/95 backdrop-blur border-b border-gray-100">
         <div className="px-6 py-4 flex items-center gap-4">
           <NavLink to="/" className="text-lg text-gray-900">
             <span className="italic font-light">Uhyun Park</span>
@@ -56,6 +56,9 @@ export default function Layout() {
             <NavLink to="/" end className={mobileNavLinkClass}>
               Home
             </NavLink>
+            <NavLink to="/writing" className={mobileNavLinkClass}>
+              Writing
+            </NavLink>
             <NavLink to="/experience" className={mobileNavLinkClass}>
               Experience
             </NavLink>
@@ -65,7 +68,7 @@ export default function Layout() {
 
       {/* Main content - centered */}
       <main className="max-w-2xl mx-auto">
-        <div className="px-8 py-6 md:py-16">
+        <div className="px-8 py-6 md:py-16 lg:pt-[6.25rem]">
           <Outlet />
         </div>
       </main>

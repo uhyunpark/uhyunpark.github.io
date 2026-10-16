@@ -1,17 +1,9 @@
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
-import { HiOutlineExternalLink } from 'react-icons/hi'
-import writingsData from '../data/writings.json'
+import { writings, formatDate } from '../lib/writings'
 import personalInterestsData from '../data/interest.json'
+import keywordsData from '../data/keywords.json'
 import othersData from '../data/others.json'
-
-interface Writing {
-  title: string
-  excerpt?: string
-  date: string
-  slug: string
-  url?: string
-}
 
 interface OtherWork {
   title: string
@@ -19,20 +11,14 @@ interface OtherWork {
   period: string
 }
 
-function formatDate(dateStr: string): string {
-  const date = new Date(dateStr)
-  return date.toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-}
-
-// Toggle to show/hide the "Recent Writings" section on the home page.
-const SHOW_WRITINGS = false
+const latest = writings.slice(0, 3)
 
 export default function PersonalPage() {
   return (
     <div className="space-y-16">
       {/* Other Works Section */}
       <section>
-        <h2 className="text-base font-semibold text-gray-900 mb-3">Some Works</h2>
+        <h2 className="text-base font-semibold text-gray-900 mb-3">Projects</h2>
         <div className="border-t border-gray-100 pt-4 space-y-6">
           {(othersData as OtherWork[]).map((work, index) => (
             <div key={index}>
@@ -63,62 +49,67 @@ export default function PersonalPage() {
         </div>
       </section>
 
-      {/* Writings Section */}
-      {SHOW_WRITINGS && (
-      <section>
-        <div className="flex items-baseline justify-between mb-3">
-          <h2 className="text-base font-semibold text-gray-900">Recent Writings</h2>
-          <Link
-            to="/writings"
-            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            View all
-          </Link>
-        </div>
-        <div className="border-t border-gray-100 pt-4">
-          {writingsData.length > 0 ? (
-            <div className="space-y-4">
-              {(writingsData as Writing[]).slice(0, 5).map((post, index) => {
-                const isExternal = !!post.url
-                const content = (
-                  <div className="flex justify-between items-center gap-4 group">
-                    <span className="flex items-center gap-1.5 text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
-                      <HiOutlineExternalLink className="w-3.5 h-3.5 text-gray-400" />
-                      {post.title}
-                    </span>
-                    <span className="text-xs text-gray-400 whitespace-nowrap">{formatDate(post.date)}</span>
-                  </div>
-                )
-
-                return isExternal ? (
-                  <a
-                    key={index}
-                    href={post.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="block"
-                  >
-                    {content}
-                  </a>
-                ) : (
-                  <Link key={index} to={`/writings/${post.slug}`} className="block">
-                    {content}
-                  </Link>
-                )
-              })}
-            </div>
-          ) : (
-            <p className="text-sm text-gray-400">Coming soon.</p>
-          )}
-        </div>
-      </section>
+      {/* Writing Section */}
+      {latest.length > 0 && (
+        <section>
+          <div className="flex items-baseline justify-between mb-3">
+            <h2 className="text-base font-semibold text-gray-900">Writing</h2>
+            {writings.length > 3 && (
+              <Link
+                to="/writing"
+                className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
+              >
+                All writing →
+              </Link>
+            )}
+          </div>
+          <div className="border-t border-gray-100 pt-4 space-y-3">
+            {latest.map((post) => {
+              const row = (
+                <>
+                  <span className="text-sm text-gray-600 group-hover:text-gray-900 transition-colors">
+                    {post.title}
+                    {post.url && <span className="ml-1 text-gray-400">↗</span>}
+                  </span>
+                  <span className="text-xs text-gray-400 whitespace-nowrap">
+                    {formatDate(post.date, { month: 'short', year: 'numeric' })}
+                  </span>
+                </>
+              )
+              const rowClass = 'group flex justify-between items-baseline gap-4'
+              return post.url ? (
+                <a
+                  key={post.slug}
+                  href={post.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={rowClass}
+                >
+                  {row}
+                </a>
+              ) : (
+                <Link key={post.slug} to={`/writing/${post.slug}`} className={rowClass}>
+                  {row}
+                </Link>
+              )
+            })}
+          </div>
+        </section>
       )}
 
       {/* Interests Section */}
       <section>
         <h2 className="text-base font-semibold text-gray-900 mb-3">Interests</h2>
         <div className="border-t border-gray-100 pt-4">
-          <div className="flex flex-wrap gap-4 text-2xl">
+          <p className="text-sm text-gray-900 mb-3">
+            {(keywordsData as string[]).map((keyword, index) => (
+              <span key={index}>
+                {index > 0 && <span className="mx-2 text-gray-300">·</span>}
+                {keyword}
+              </span>
+            ))}
+          </p>
+          <div className="flex flex-wrap gap-3 text-xl">
             {(personalInterestsData as string[]).map((interest, index) => (
               <span key={index}>{interest}</span>
             ))}

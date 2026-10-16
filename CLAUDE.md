@@ -16,13 +16,13 @@ Personal blog/portfolio site built with Vite + React + TypeScript.
 src/
 ├── main.tsx         # Entry point with routing
 ├── App.tsx          # Home page (toggle between personal/resume)
+├── lib/
+│   └── writings.ts           # Loads src/writings/*.md, parses frontmatter, sorted list + lookup
 ├── pages/
-│   ├── WritingsPage.tsx      # /writings - list all posts
-│   └── WritingDetailPage.tsx # /writings/:slug - single post
-├── writings/        # Markdown files for blog posts
-│   └── hello-world.md
+│   ├── WritingsPage.tsx      # /writing - list all posts, grouped by year
+│   └── WritingDetailPage.tsx # /writing/:slug - single post
+├── writings/        # Markdown posts with frontmatter (slug = filename)
 ├── data/            # JSON content/metadata
-│   ├── writings.json   # Post metadata (title, excerpt, date, slug)
 │   ├── exp.json
 │   ├── education.json
 │   ├── interest.json
@@ -33,24 +33,26 @@ src/
 ## Routes
 
 - `/` - Home page (default: personal content; toggle: resume/work experience)
-- `/writings` - All writings list
-- `/writings/:slug` - Individual writing detail page
+- `/writing` - All writing list
+- `/writing/:slug` - Individual writing detail page
 
 ## Adding New Writings
 
-1. Create markdown file in `src/writings/` (e.g., `my-post.md`)
-2. Add metadata to `src/data/writings.json`:
+Create `src/writings/<slug>.md`. The filename (without `.md`) is the slug.
 
-```json
-{
-  "title": "Post Title",
-  "excerpt": "Short summary for listings",
-  "date": "YYYY-MM-DD",
-  "slug": "my-post"
-}
+```md
+---
+title: Post Title
+date: 2026-01-03
+excerpt: Optional short summary for the list page
+---
+
+Markdown body (GFM tables, footnotes, code blocks supported).
 ```
 
-The `slug` must match the markdown filename (without `.md`).
+- `title` and `date` (YYYY-MM-DD) are required. `excerpt` is optional.
+- Images: put files in `public/writing/<slug>/` and reference them as `![alt](/writing/<slug>/file.png)`.
+- External posts: add `url: https://...` to the frontmatter. The post links out (new tab) and the body can be empty.
 
 ## Commands
 

@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { HiOutlineMail } from 'react-icons/hi'
+import { writings } from '../lib/writings'
 
 export default function Sidebar() {
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -54,9 +55,11 @@ export default function Sidebar() {
           <NavLink to="/" end className={navLinkClass}>
             Home
           </NavLink>
-          <NavLink to="/writing" className={navLinkClass}>
-            Writing
-          </NavLink>
+          {writings.length > 0 && (
+            <NavLink to="/writing" className={navLinkClass}>
+              Writing
+            </NavLink>
+          )}
           <NavLink to="/experience" className={navLinkClass}>
             Experience
           </NavLink>

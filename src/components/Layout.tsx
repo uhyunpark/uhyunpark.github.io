@@ -69,9 +69,9 @@ export default function Layout() {
         </nav>
       </header>
 
-      {/* Main content - centered */}
+      {/* Main content - centered; lg top padding baseline-aligns the first heading with the sidebar name */}
       <main className="max-w-2xl mx-auto">
-        <div className="px-8 py-6 md:py-16 lg:pt-[6.25rem]">
+        <div className="px-8 py-6 md:py-16 lg:pt-[103px]">
           <Outlet />
         </div>
       </main>

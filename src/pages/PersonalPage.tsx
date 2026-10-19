@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import { writings, formatDate } from '../lib/writings'
@@ -100,15 +101,20 @@ export default function PersonalPage() {
       {/* Interests Section */}
       <section>
         <h2 className="text-base font-semibold text-gray-900 mb-3">Interests</h2>
-        <div className="border-t border-gray-100 pt-4">
-          <p className="text-sm text-gray-900 mb-3">
-            {(keywordsData as string[]).map((keyword, index) => (
-              <span key={index}>
-                {index > 0 && <span className="mx-2 text-gray-300">·</span>}
-                {keyword}
-              </span>
+        <div className="border-t border-gray-100 pt-4 grid grid-cols-[2.5rem_1fr] gap-x-4 gap-y-3 items-baseline">
+          <span className="text-xs text-gray-400">Now</span>
+          <p className="text-sm text-gray-900">
+            {(keywordsData as string[]).map((keyword, index, all) => (
+              <Fragment key={index}>
+                <span className="whitespace-nowrap">
+                  {keyword}
+                  {index < all.length - 1 && <span className="mx-2 text-gray-300">·</span>}
+                </span>
+                <wbr />
+              </Fragment>
             ))}
           </p>
+          <span className="text-xs text-gray-400">Life</span>
           <div className="flex flex-wrap gap-3 text-xl">
             {(personalInterestsData as string[]).map((interest, index) => (
               <span key={index}>{interest}</span>

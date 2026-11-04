@@ -1,5 +1,9 @@
 [
   {
+    "title": "Tradeasy",
+    "description": "[Tradeasy](https://github.com/uhyunpark/tradeasy) - Chrome extension for trading on Solana terminals with your own wallet, with zero terminal fees and keys that never leave your machine."
+  },
+  {
     "title": "Fixxy",
     "description": "[Fixxy](https://github.com/uhyunpark/fixxy) - Essential audio plugins for modern music production."
   },

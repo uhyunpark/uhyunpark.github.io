@@ -2,7 +2,7 @@ import { Outlet, NavLink } from 'react-router-dom'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { HiOutlineMail } from 'react-icons/hi'
 import Sidebar from './Sidebar'
-import { writings } from '../lib/writings'
+import { hasWritingPage } from '../lib/writings'
 
 export default function Layout() {
   const mobileNavLinkClass = ({ isActive }: { isActive: boolean }) =>
@@ -57,14 +57,14 @@ export default function Layout() {
             <NavLink to="/" end className={mobileNavLinkClass}>
               Home
             </NavLink>
-            {writings.length > 0 && (
+            <NavLink to="/experience" className={mobileNavLinkClass}>
+              Experience
+            </NavLink>
+            {hasWritingPage && (
               <NavLink to="/writing" className={mobileNavLinkClass}>
                 Writing
               </NavLink>
             )}
-            <NavLink to="/experience" className={mobileNavLinkClass}>
-              Experience
-            </NavLink>
           </div>
         </nav>
       </header>

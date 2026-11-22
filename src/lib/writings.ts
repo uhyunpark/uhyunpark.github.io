@@ -40,6 +40,11 @@ export const writings: Writing[] = Object.entries(files)
   })
   .sort((a, b) => b.date.localeCompare(a.date))
 
+export const HOME_WRITING_LIMIT = 3
+
+// Writing earns its own nav entry only once it outgrows the home section.
+export const hasWritingPage = writings.length > HOME_WRITING_LIMIT
+
 export function getWriting(slug: string | undefined): Writing | undefined {
   return writings.find((w) => w.slug === slug)
 }

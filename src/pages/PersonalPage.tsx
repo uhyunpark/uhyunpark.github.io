@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
-import { writings, formatDate } from '../lib/writings'
+import { writings, formatDate, HOME_WRITING_LIMIT, hasWritingPage } from '../lib/writings'
 import personalInterestsData from '../data/interest.json'
 import keywordsData from '../data/keywords.json'
 import othersData from '../data/others.json'
@@ -12,7 +12,7 @@ interface OtherWork {
   period: string
 }
 
-const latest = writings.slice(0, 3)
+const latest = writings.slice(0, HOME_WRITING_LIMIT)
 
 export default function PersonalPage() {
   return (
@@ -55,7 +55,7 @@ export default function PersonalPage() {
         <section>
           <div className="flex items-baseline justify-between mb-3">
             <h2 className="text-base font-semibold text-gray-900">Writing</h2>
-            {writings.length > 3 && (
+            {hasWritingPage && (
               <Link
                 to="/writing"
                 className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
